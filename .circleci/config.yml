@@ -1,17 +1,31 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@2.0.1
+  python: circleci/python@2.0.3
 
 jobs:
   test:
-    machine:
-      resource_class: gpu.nvidia.small
+    executor: python/default
     steps:
       - checkout
       - python/install-packages:
           pkg-manager: pip
-      - run: pytest
+      - run: pytest --junitxml=test-results/junit.xml
+      - store_test_results:
+          path: test-results  
+
+  test_parallel:
+    parallelism: 10 # Parallelism
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+      - run: | 
+          TEST_FILES=$(circleci tests glob "e2e/*.spec.ts" | circleci tests split --split-by=timings)
+          npm run e2e -file=$TEST_FILES
+      - store_test_results:
+          path: report.xml
 
 workflows:
   sample:
