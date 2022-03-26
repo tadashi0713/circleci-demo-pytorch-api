@@ -33,8 +33,11 @@ jobs:
       - run:
           name: Test
           command: |
-            echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
+            source ~/.bashrc
             pipenv install
+            pipenv run pytest --junitxml=test-results/junit.xml
+      - store_test_results:
+          path: test-results  
 
 workflows:
   test_and_deploy:
