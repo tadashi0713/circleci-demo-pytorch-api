@@ -1,14 +1,17 @@
-FROM python:3.8
+FROM python:3.8-buster as base
 
-ENV LC_ALL=C.UTF-8 \
-    LANG=C.UTF-8
+WORKDIR /opt/app
+COPY Pipfile Pipfile.lock /opt/app/
+RUN pip install pipenv \
+  && pipenv install --ignore-pipfile --deploy --system
 
-WORKDIR /app
-COPY . .
 
-RUN pip install pipenv
-RUN pipenv install
+FROM python:3.8-slim-buster as prod
 
-CMD ["pipenv", "run", "flask", "run"]
+COPY --from=base /usr/local/lib/python3.8/site-packages /usr/local/lib/python3.8/site-packages
+COPY --from=base /usr/local/bin/gunicorn /usr/local/bin/gunicorn
 
-EXPOSE 5000
+WORKDIR /opt/app
+COPY . /opt/app
+
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
