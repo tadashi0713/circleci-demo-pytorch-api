@@ -9,7 +9,7 @@ If you'd like to learn how to deploy to Heroku, then check [this repo](https://g
 
 Install the dependencies:
 
-    pip install -r requirements.txt
+    pipenv install
 
 
 Run the Flask server:
