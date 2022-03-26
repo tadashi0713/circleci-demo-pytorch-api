@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@2.0.3
+  gcp-gcr: circleci/gcp-gcr@0.15.0
 
 jobs:
   test:
