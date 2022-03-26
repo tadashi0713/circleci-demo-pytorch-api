@@ -9,7 +9,6 @@ jobs:
     steps:
       - checkout
       - python/install-packages:
-          args: pytest
           pkg-manager: pipenv
       - run: pipenv run pytest --junitxml=test-results/junit.xml
       - store_test_results:

@@ -6,9 +6,9 @@ name = "pypi"
 [packages]
 torchvision = "==0.12"
 Flask = "==2.0.3"
+pytest = "==7.1.1"
 
 [dev-packages]
-pytest = "==7.1.1"
 
 [requires]
 python_version = "3.8"
