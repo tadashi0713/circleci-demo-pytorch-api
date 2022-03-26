@@ -30,7 +30,11 @@ jobs:
     resource_class: tadashi0713/gcp
     steps:
       - checkout
-      - run: pipenv install
+      - run:
+          name: Test
+          command: |
+            echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
+            pipenv install
 
 workflows:
   test_and_deploy:
