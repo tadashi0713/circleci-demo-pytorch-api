@@ -1,7 +1,4 @@
-FROM python:3.9
-
-ENV LC_ALL=C.UTF-8 \
-    LANG=C.UTF-8
+FROM python:3.9-slim
 
 WORKDIR /app
 COPY . .
@@ -9,6 +6,6 @@ COPY . .
 RUN pip install pipenv
 RUN pipenv install
 
-CMD ["pipenv", "run", "python", "app.py", "--host=0.0.0.0"]
-
 EXPOSE 5000
+
+CMD ["pipenv", "run", "gunicorn", "--config", "gunicorn_config.py", "app:app"]
