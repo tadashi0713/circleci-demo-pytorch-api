@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . .
 
 RUN pip install pipenv
-RUN pipenv install
+RUN pipenv install --system
 
 EXPOSE 5000
 
