@@ -54,7 +54,7 @@ jobs:
           command: |
             source ~/.bashrc
             pipenv install
-            pipenv run gunicorn app:app 
+            pipenv run authbind gunicorn -b 0.0.0.0:80 app:app
 
 workflows:
   test_and_deploy:
