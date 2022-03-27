@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.9
 
 ENV LC_ALL=C.UTF-8 \
     LANG=C.UTF-8
@@ -9,6 +9,6 @@ COPY . .
 RUN pip install pipenv
 RUN pipenv install
 
-CMD ["pipenv", "run", "start"]
+CMD ["pipenv", "run", "python", "app.py"]
 
 EXPOSE 5000
