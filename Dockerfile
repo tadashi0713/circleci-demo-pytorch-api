@@ -9,6 +9,6 @@ COPY . .
 RUN pip install pipenv
 RUN pipenv install
 
-CMD ["pipenv", "run", "python", "app.py"]
+CMD ["pipenv", "run", "python", "app.py", "--host=0.0.0.0"]
 
 EXPOSE 5000

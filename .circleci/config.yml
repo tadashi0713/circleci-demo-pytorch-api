@@ -44,21 +44,17 @@ jobs:
       - store_test_results:
           path: test-results
 
-  deploy_cloud_run:
-    machine:
-      docker_layer_caching: true # Docker Layer Caching
-      resource_class: large # Resource Class(Linux VM)
+  deploy:
+    machine: true
+    resource_class: tadashi0713/gcp
     steps:
       - checkout
-      - gcp-gcr/gcr-auth
-      - gcp-gcr/build-image:
-          image: circleci-demo-pytorch-api
-          tag: '${CIRCLE_SHA1}'
-          registry-url: asia.gcr.io
-      - gcp-gcr/push-image:
-          image: circleci-demo-pytorch-api
-          tag: '${CIRCLE_SHA1}'
-          registry-url: asia.gcr.io
+      - run:
+          name: Test
+          command: |
+            source ~/.bashrc
+            pipenv install
+            pipenv run gunicorn app:app 
 
 workflows:
   test_and_deploy:
@@ -67,12 +63,8 @@ workflows:
       - test_parallel:
           requires:
             - test
-      - test_runner:
-          requires:
-            - test
-      - deploy_cloud_run:
-          context: push-gcr
-          # requires:
-          #   - test_parallel
-          #   - test_runner
+      # - test_runner:
+      #     requires:
+      #       - test
+      - deploy
 
