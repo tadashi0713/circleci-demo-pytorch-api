@@ -6,7 +6,9 @@ orbs:
 
 jobs:
   test:
-    executor: python/default
+    executor:
+      name: python/default
+      tag: '3.7'
     steps:
       - checkout
       - python/install-packages:
@@ -17,7 +19,9 @@ jobs:
 
   test_parallel:
     parallelism: 10 # Parallelism
-    executor: python/default
+    executor:
+      name: python/default
+      tag: '3.7'
     steps:
       - checkout
       - python/install-packages:
@@ -35,7 +39,6 @@ jobs:
           name: Test
           command: |
             source ~/.bashrc
-            pipenv --python 3.8
             pipenv install
             pipenv run pytest --junitxml=test-results/junit.xml
       - store_test_results:
