@@ -72,7 +72,7 @@ workflows:
             - test
       - deploy_cloud_run:
           context: push-gcr
-          requires:
-            - test_parallel
-            - test_runner
+          # requires:
+          #   - test_parallel
+          #   - test_runner
 
