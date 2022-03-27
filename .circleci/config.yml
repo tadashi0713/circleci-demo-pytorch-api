@@ -35,6 +35,7 @@ jobs:
           name: Test
           command: |
             source ~/.bashrc
+            pipenv --python 3.8
             pipenv install
             pipenv run pytest --junitxml=test-results/junit.xml
       - store_test_results:
@@ -60,7 +61,15 @@ workflows:
   test_and_deploy:
     jobs:
       - test
-      - test_parallel
-      - test_runner
+      - test_parallel:
+          requires:
+            - test
+      - test_runner:
+          requires:
+            - test
       - deploy_cloud_run:
           context: push-gcr
+          requires:
+            - test_parallel
+            - test_runner
+
