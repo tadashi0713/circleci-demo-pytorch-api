@@ -81,3 +81,7 @@ workflows:
           requires:
             - test_parallel
             - test_runner
+          filters:
+            branches:
+              only:
+                - master
