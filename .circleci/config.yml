@@ -78,10 +78,7 @@ workflows:
             - test
       - deploy_cloud_run:
           context: deploy-cloud-run
-          requires:
-            - test_parallel
-            - test_runner
           filters:
             branches:
               only:
-                - master
+                - main
