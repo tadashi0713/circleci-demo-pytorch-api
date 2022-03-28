@@ -59,6 +59,12 @@ jobs:
           image: circleci-demo-pytorch-api
           tag: '${CIRCLE_SHA1}'
           registry-url: asia.gcr.io
+      - run:
+          name: Deploy to Google Cloud run
+          command: >-
+            gcloud run deploy circleci-demo-pytorch-api
+            --platform=managed --region=asia-northeast1 --allow-unauthenticated
+            --image=asia.gcr.io/${GOOGLE_PROJECT_ID}/circleci-demo-pytorch-api:${CIRCLE_SHA1}
 
 workflows:
   test_and_deploy:
@@ -71,8 +77,7 @@ workflows:
           requires:
             - test
       - deploy_cloud_run:
-          context: push-gcr
-          # requires:
-          #   - test_parallel
-          #   - test_runner
-
+          context: deploy-cloud-run
+          requires:
+            - test_parallel
+            - test_runner
