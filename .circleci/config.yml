@@ -18,7 +18,7 @@ jobs:
           path: test-results  
 
   test_parallel:
-    parallelism: 10 # Parallelism
+    parallelism: 11 # Parallelism
     executor:
       name: python/default
       tag: '3.9'
