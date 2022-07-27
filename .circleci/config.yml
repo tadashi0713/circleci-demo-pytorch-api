@@ -6,9 +6,9 @@ orbs:
 
 jobs:
   test:
-    executor:
-      name: python/default
-      tag: '3.9'
+    docker:
+      - image: cimg/python:3.9
+    resource_class: xlarge
     steps:
       - checkout
       - python/install-packages:
@@ -19,9 +19,9 @@ jobs:
 
   test_parallel:
     parallelism: 11 # Parallelism
-    executor:
-      name: python/default
-      tag: '3.9'
+    docker:
+      - image: cimg/python:3.9
+    resource_class: xlarge
     steps:
       - checkout
       - python/install-packages:
