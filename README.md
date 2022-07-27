@@ -1,9 +1,15 @@
-# PyTorch Flask API
+# PyTorch Flask API + CircleCI
 
-This repo contains a sample code to show how to create a Flask API server by deploying our PyTorch model. This is a sample code which goes with [tutorial](https://pytorch.org/tutorials/intermediate/flask_rest_api_tutorial.html).
+This is CircleCI demo for PyTorch Flask API(Image classification).
 
-If you'd like to learn how to deploy to Heroku, then check [this repo](https://github.com/avinassh/pytorch-flask-api-heroku).
+![api](https://user-images.githubusercontent.com/8651308/161207011-14665f6d-e08b-48f2-9a66-1dc1dbfc6245.jpg)
 
+## CircleCI features
+
+* [Custom resource class](https://circleci.com/product/features/resource-classes/)(include GPU)
+* [CircleCI Runner](https://circleci.com/execution-environments/runner/)(In machine learning project or self-driving projects, there are needs to run build/test/deploy on on-prem machines/devices)
+* [SSH debug](https://circleci.com/docs/2.0/ssh-access-jobs/)(Both CircleCI provided machines and runners)
+* [Test splitting](https://circleci.com/docs/2.0/parallelism-faster-jobs/)
 
 ## How to 
 
@@ -16,12 +22,7 @@ Run the Flask server:
 
     FLASK_ENV=development FLASK_APP=app.py flask run
 
-
 From another tab, send the image file in a request:
 
-    curl -X POST -F file=@cat_pic.jpeg http://localhost:5000/predict
+    curl -X POST -F file=@images/otter.jpeg http://localhost:5000/predict
 
-
-## License
-
-The mighty MIT license. Please check `LICENSE` for more details.
